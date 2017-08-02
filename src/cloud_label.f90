@@ -19,6 +19,9 @@ module m_cloud_label
       Nx=size(cld,dim=1); Ny=size(cld,dim=2); Nz=size(cld,dim=3)
       label = nil
 
+      !print *,'Shape of label:', shape(label)
+      !print *,'Shape of cloud:', shape(cld)
+
       ilabel=0
 
       do k=1,Nz
@@ -49,13 +52,17 @@ module m_cloud_label
       im1 = cyclic(i-1, Nx); ip1 = cyclic(i+1, Nx)
 
       if (label(i, j, k).eq.ilabel) return ! have been here already
+      if (label(i, j, k).ne.nil) then
+        print *,i ,j, k, ':', ilabel, '::', label(i, j, k)
+        stop 'already has a label! that should not happen?'
+      endif
 
       if (cld(i, j, k)) label(i, j, k) = ilabel
 
-      if (cld(im1, j  , k  )) then
+      if (cld(im1, j, k)) then
         call fill_stencil(im1,j,k, cld, ilabel, label)
       endif
-      if (cld(ip1, j  , k  )) then
+      if (cld(ip1, j, k)) then
         call fill_stencil(ip1,j,k, cld, ilabel, label)
       endif
       if (cld(i  , jm1, k  )) then
@@ -74,7 +81,7 @@ module m_cloud_label
 
     pure integer function cyclic(i,N)
       integer,intent(in) :: i, N
-      cyclic = modulo(modulo(i-1, N) + 10, 10)+1
+      cyclic = modulo(modulo(i-1, N) + N, N)+1
     end function
 
 end module

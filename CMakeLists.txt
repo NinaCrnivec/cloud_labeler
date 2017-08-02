@@ -8,7 +8,7 @@ endif()
 set(CMAKE_C_COMPILER   "gcc")
 set(CMAKE_Fortran_COMPILER   "gfortran")
 
-set(CMAKE_Fortran_FLAGS "-cpp -ffree-line-length-none -g -fbacktrace -finit-real=nan -W -Wall -Wuninitialized -g -pg -fcheck=all -fbounds-check -pedantic -Wsurprising -ffpe-trap=invalid,zero,overflow -fno-range-check")
+#set(CMAKE_Fortran_FLAGS "-cpp -ffree-line-length-none -g -fbacktrace -finit-real=nan -W -Wall -Wuninitialized -g -pg -fcheck=all -fbounds-check -pedantic -Wsurprising -ffpe-trap=invalid,zero,overflow -fno-range-check")
 ########################### Tenstream Project: ###################################
 project (cloud_label C Fortran)
 set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
